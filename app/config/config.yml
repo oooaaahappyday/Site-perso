@@ -11,6 +11,7 @@ parameters:
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
+    translator:      ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -66,3 +67,29 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Doctrine Migrations
+doctrine_migrations:
+        dir_name: "%kernel.root_dir%/migrations"
+        namespace: Migrations
+        table_name: migration_version
+        name: Joseph Migrations
+# FOSUserBundle
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    registration:
+        confirmation:
+            enabled: true
+    from_email:
+        address:        resinijunk@gmail.com
+        sender_name:    resini
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: email/password_resetting.email.twig
+    registration:
+        confirmation:
+            template: FOSUserBundle:Registration:email.txt.twig
